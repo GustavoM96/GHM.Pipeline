@@ -5,12 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>GHM Pipeline</Title>
-	<Version>2.0.0</Version>
+	<Version>1.0.0</Version>
 	<PackageId>GHM.Pipeline</PackageId>
 	<Authors>Gustavo Henrique Messias</Authors>
 	<Company>Gustavo Henrique Messias</Company>
-	<PackageTags>validation</PackageTags>
-	<Description>A package for validate data</Description>
+	<PackageTags>pipeline</PackageTags>
+	<Description>A package for managing pipeline</Description>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/GustavoM96/GHM.Pipeline</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/GustavoM96/GHM.Pipeline</RepositoryUrl>
