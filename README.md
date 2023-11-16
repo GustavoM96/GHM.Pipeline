@@ -1,6 +1,6 @@
 # GHM.Pipeline
 
-GHM.Pipeline is a nuget package with the aim of managing a pipeline in parts.
+GHM.Pipeline is a nuget package with the aim of pipeline management in parts.
 One pipeline has many stages.
 One stage has many steps.
 
