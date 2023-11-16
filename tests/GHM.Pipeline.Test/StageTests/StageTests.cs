@@ -8,7 +8,8 @@ public class StageTests
 
     public StageTests()
     {
-        _stage = new();
+        var data = new DataExemple();
+        _stage = new(data);
     }
 
     [Fact]
