@@ -2,14 +2,14 @@
 
 namespace GHM.Pipeline;
 
-public abstract class Stage<TData, TStage>
+public abstract class Stage<TData, TName>
     where TData : class
-    where TStage : Enum
+    where TName : Enum
 {
-    protected Stage(TData data, TStage stage)
+    protected Stage(TData data, TName stage)
     {
         Data = data;
-        Value = stage;
+        Name = stage;
     }
 
     private readonly List<Step> _steps = new();
@@ -17,10 +17,12 @@ public abstract class Stage<TData, TStage>
     public IReadOnlyCollection<Step> Steps => _steps.AsReadOnly();
     public Status Status => GetStatusMoreCritical();
 
-    public TStage Value { get; }
+    public TName Name { get; }
     public TData Data { get; }
 
     public void AddStep(Step step) => _steps.Add(step);
+
+    public void AddRangeSteps(IEnumerable<Step> steps) => _steps.AddRange(steps);
 
     private Status GetStatusMoreCritical()
     {
