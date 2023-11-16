@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\src\GHM.Pipeline\GHM.Pipeline.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Stage/" />
+  </ItemGroup>
+
 </Project>
