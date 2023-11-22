@@ -105,6 +105,7 @@ public class StageTests
 
         //Assert
         Assert.Equal(Status.InProgress, _stage.Status);
+        Assert.False(_stage.IsSuccess);
     }
 
     [Fact]
@@ -119,7 +120,8 @@ public class StageTests
         _stage.AddRangeSteps(stepList);
 
         //Assert
-        Assert.Equal(Status.InProgress, _stage.Status);
+        Assert.Equal(Status.Success, _stage.Status);
+        Assert.True(_stage.IsSuccess);
     }
 
     [Fact]
@@ -128,6 +130,7 @@ public class StageTests
         //Arrange
         //Act
         //Assert
-        Assert.Equal(Status.InProgress, _stage.Status);
+        Assert.Equal(Status.Success, _stage.Status);
+        Assert.True(_stage.IsSuccess);
     }
 }
