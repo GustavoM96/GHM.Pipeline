@@ -16,6 +16,7 @@ public abstract class Stage<TData, TName>
 
     public IReadOnlyCollection<Step> Steps => _steps.AsReadOnly();
     public Status Status => GetStatusMoreCritical();
+    public bool IsSuccess => Status == Status.Success;
 
     public TName Name { get; }
     public TData Data { get; }
