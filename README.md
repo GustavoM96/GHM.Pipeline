@@ -9,13 +9,13 @@ One stage has many steps.
 .NET CLI
 
 ```sh
-dotnet add package GHM.Pipeline --version 1.0.0
+dotnet add package GHM.Pipeline --version 1.0.1
 ```
 
 Package Manager
 
 ```sh
-NuGet\Install-Package GHM.Pipeline -Version 1.0.0
+NuGet\Install-Package GHM.Pipeline -Version 1.0.1
 ```
 
 ## Example
