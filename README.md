@@ -33,6 +33,7 @@ Step has many Status:
 ```csharp
 var step = Step.Success("success test","Step Name")
 step.Status // Success
+step.IsSuccess // true
 ```
 
 ### Stage Object Structure
