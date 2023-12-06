@@ -23,6 +23,17 @@ public abstract class Stage<TData, TName>
 
     public void AddStep(Step step) => _steps.Add(step);
 
+    public void AddError(string message, string name = "Generic.Step") => _steps.Add(Step.Error(message, name));
+
+    public void AddCanceled(string message, string name = "Generic.Step") => _steps.Add(Step.Canceled(message, name));
+
+    public void AddInProgress(string message, string name = "Generic.Step") => _steps.Add(Step.InProgress(message, name));
+
+    public void AddInAdjustment(string message, string name = "Generic.Step") =>
+        _steps.Add(Step.InAdjustment(message, name));
+
+    public void AddSuccess(string message, string name = "Generic.Step") => _steps.Add(Step.Success(message, name));
+
     public void AddRangeSteps(IEnumerable<Step> steps) => _steps.AddRange(steps);
 
     private Status GetStatusMoreCritical()
