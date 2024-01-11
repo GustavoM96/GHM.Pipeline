@@ -11,13 +11,13 @@ GHM.Pipeline is a nuget package aims to manage pipelines in parts, where a pipel
 .NET CLI
 
 ```sh
-dotnet add package GHM.Pipeline --version 1.0.2
+dotnet add package GHM.Pipeline
 ```
 
 Package Manager
 
 ```sh
-NuGet\Install-Package GHM.Pipeline -Version 1.0.2
+NuGet\Install-Package GHM.Pipeline
 ```
 
 ## Example
