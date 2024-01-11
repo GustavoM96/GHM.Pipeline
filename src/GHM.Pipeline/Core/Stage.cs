@@ -1,6 +1,4 @@
-﻿using Ghm.Pipeline.Enum;
-
-namespace GHM.Pipeline;
+﻿namespace GHM.Pipeline;
 
 public abstract class Stage<TData, TName>
     where TData : class

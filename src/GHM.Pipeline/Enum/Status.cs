@@ -1,4 +1,4 @@
-namespace Ghm.Pipeline.Enum;
+namespace GHM.Pipeline;
 
 public enum Status
 {

@@ -1,5 +1,3 @@
-using Ghm.Pipeline.Enum;
-
 namespace GHM.Pipeline;
 
 public readonly struct Step
