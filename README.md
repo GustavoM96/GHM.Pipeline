@@ -95,7 +95,7 @@ public class EcommerceService
         catch (Exception ex)
         {
             stage.AddError("internal error: " + ex.Message) // // this step create a error to the stage
-        }
+        }Default
 
         return
     }
@@ -113,6 +113,7 @@ Step has many Status:
 - Canceled
 - InProgress
 - InAdjustment
+- Default
 
 ```csharp
 var step = Step.Success("success test","Step Name")
