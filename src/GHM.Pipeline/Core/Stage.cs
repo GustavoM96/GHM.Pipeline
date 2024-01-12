@@ -14,7 +14,7 @@ public abstract class Stage<TData, TName>
 
     public IReadOnlyCollection<Step> Steps => _steps.AsReadOnly();
     public Status Status => GetStatusMoreCritical();
-    public bool IsSuccess => Status == Status.Success;
+    public bool IsSuccess => Status is Status.Success or Status.Default;
 
     public TName Name { get; }
     public TData Data { get; }
@@ -56,6 +56,11 @@ public abstract class Stage<TData, TName>
             return Status.InProgress;
         }
 
-        return Status.Success;
+        if (_steps.Any(s => s.Status == Status.Success))
+        {
+            return Status.Success;
+        }
+
+        return Status.Default;
     }
 }

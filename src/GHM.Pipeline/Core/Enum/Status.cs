@@ -6,5 +6,6 @@ public enum Status
     Error = 2,
     Canceled = 3,
     InProgress = 4,
-    InAdjustment = 5
+    InAdjustment = 5,
+    Default = 6,
 }
