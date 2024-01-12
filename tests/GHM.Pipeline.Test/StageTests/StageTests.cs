@@ -123,12 +123,12 @@ public class StageTests
     }
 
     [Fact]
-    public void Status_Should_Be_Success_When_Default()
+    public void Status_Should_Be_Default_When_NotAddStep()
     {
         //Arrange
         //Act
         //Assert
-        Assert.Equal(Status.Success, _stage.Status);
+        Assert.Equal(Status.Default, _stage.Status);
         Assert.True(_stage.IsSuccess);
     }
 }
