@@ -53,6 +53,9 @@ public class StageTests
 
         //Assert
         Assert.Equal(Status.Canceled, _stage.Status);
+        Assert.False(_stage.IsSuccess);
+        Assert.True(_stage.IsCanceled);
+        Assert.True(_stage.IsError);
     }
 
     [Fact]
@@ -70,6 +73,9 @@ public class StageTests
 
         //Assert
         Assert.Equal(Status.Error, _stage.Status);
+        Assert.False(_stage.IsSuccess);
+        Assert.False(_stage.IsCanceled);
+        Assert.True(_stage.IsError);
     }
 
     [Fact]
@@ -87,6 +93,9 @@ public class StageTests
 
         //Assert
         Assert.Equal(Status.InAdjustment, _stage.Status);
+        Assert.False(_stage.IsSuccess);
+        Assert.False(_stage.IsCanceled);
+        Assert.False(_stage.IsError);
     }
 
     [Fact]
@@ -104,6 +113,8 @@ public class StageTests
         //Assert
         Assert.Equal(Status.InProgress, _stage.Status);
         Assert.False(_stage.IsSuccess);
+        Assert.False(_stage.IsCanceled);
+        Assert.False(_stage.IsError);
     }
 
     [Fact]
@@ -111,8 +122,9 @@ public class StageTests
     {
         //Arrange
         var step = Step.Success("success test message");
+        var step2 = Step.Information("information test message");
 
-        var stepList = new List<Step>(1) { step };
+        var stepList = new List<Step>(1) { step, step2 };
 
         //Act
         _stage.AddRangeSteps(stepList);
@@ -120,6 +132,26 @@ public class StageTests
         //Assert
         Assert.Equal(Status.Success, _stage.Status);
         Assert.True(_stage.IsSuccess);
+        Assert.False(_stage.IsCanceled);
+        Assert.False(_stage.IsError);
+    }
+
+    [Fact]
+    public void Status_Should_Be_Success_When_AddStepInformation()
+    {
+        //Arrange
+        var step = Step.Information("information test message");
+
+        var stepList = new List<Step>(1) { step };
+
+        //Act
+        _stage.AddRangeSteps(stepList);
+
+        //Assert
+        Assert.Equal(Status.Information, _stage.Status);
+        Assert.True(_stage.IsSuccess);
+        Assert.False(_stage.IsCanceled);
+        Assert.False(_stage.IsError);
     }
 
     [Fact]
@@ -130,5 +162,7 @@ public class StageTests
         //Assert
         Assert.Equal(Status.Default, _stage.Status);
         Assert.True(_stage.IsSuccess);
+        Assert.False(_stage.IsCanceled);
+        Assert.False(_stage.IsError);
     }
 }
