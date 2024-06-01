@@ -1,13 +1,11 @@
 ﻿namespace GHM.Pipeline;
 
-public abstract class Stage<TData, TName>
+public abstract class Stage<TData>
     where TData : class
-    where TName : Enum
 {
-    protected Stage(TData data, TName stage)
+    protected Stage(TData data)
     {
         Data = data;
-        Name = stage;
     }
 
     private readonly List<Step> _steps = new();
@@ -16,51 +14,31 @@ public abstract class Stage<TData, TName>
     public Status Status => GetStatusMoreCritical();
     public bool IsSuccess => Status is Status.Success or Status.Default;
 
-    public TName Name { get; }
     public TData Data { get; }
+
+    public void AddRangeSteps(IEnumerable<Step> steps) => _steps.AddRange(steps);
 
     public void AddStep(Step step) => _steps.Add(step);
 
-    public void AddError(string message, string name = "Generic.Step") => _steps.Add(Step.Error(message, name));
-
     public void AddCanceled(string message, string name = "Generic.Step") => _steps.Add(Step.Canceled(message, name));
 
-    public void AddInProgress(string message, string name = "Generic.Step") => _steps.Add(Step.InProgress(message, name));
+    public void AddError(string message, string name = "Generic.Step") => _steps.Add(Step.Error(message, name));
 
     public void AddInAdjustment(string message, string name = "Generic.Step") =>
         _steps.Add(Step.InAdjustment(message, name));
 
+    public void AddInProgress(string message, string name = "Generic.Step") => _steps.Add(Step.InProgress(message, name));
+
     public void AddSuccess(string message, string name = "Generic.Step") => _steps.Add(Step.Success(message, name));
 
-    public void AddRangeSteps(IEnumerable<Step> steps) => _steps.AddRange(steps);
+    public void AddInformation(string message, string name = "Generic.Step") => _steps.Add(Step.Information(message, name));
 
     private Status GetStatusMoreCritical()
     {
-        if (_steps.Any(s => s.Status == Status.Canceled))
+        if (_steps.Count == 0)
         {
-            return Status.Canceled;
+            return Status.Default;
         }
-
-        if (_steps.Any(s => s.Status == Status.Error))
-        {
-            return Status.Error;
-        }
-
-        if (_steps.Any(s => s.Status == Status.InAdjustment))
-        {
-            return Status.InAdjustment;
-        }
-
-        if (_steps.Any(s => s.Status == Status.InProgress))
-        {
-            return Status.InProgress;
-        }
-
-        if (_steps.Any(s => s.Status == Status.Success))
-        {
-            return Status.Success;
-        }
-
-        return Status.Default;
+        return _steps.MaxBy(x => (int)x.Status).Status;
     }
 }

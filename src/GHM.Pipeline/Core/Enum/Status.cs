@@ -2,10 +2,11 @@ namespace GHM.Pipeline;
 
 public enum Status
 {
-    Success = 1,
-    Error = 2,
-    Canceled = 3,
+    Default = 1,
+    Information = 2,
+    Success = 3,
     InProgress = 4,
     InAdjustment = 5,
-    Default = 6,
+    Error = 6,
+    Canceled = 7,
 }
