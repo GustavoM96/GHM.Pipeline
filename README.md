@@ -2,7 +2,7 @@
 <img src="logo.png" alt="logo" width="200px"/>
 </p>
 
-<h1 align="center"> GHM.HTTPResult </h1>
+<h1 align="center"> GHM.Pipeline </h1>
 
 GHM.Pipeline is a nuget package aims to manage pipelines in parts, where a pipeline has many stages and a stage has many steps.
 
@@ -31,7 +31,7 @@ Stages:
   - to insert in DataBase (`STEP`)
 - Validation (`STAGE`)
   - customer has all data has been successfully validated (`STEP`)
-  - seller as all data has been successfully validated (`STEP`)
+  - seller has all data has been successfully validated (`STEP`)
 - Processing (`STAGE`)
   - to Process credit card (`STEP`)
 - Sending (`STAGE`)
@@ -48,28 +48,20 @@ public static class EcommercePipeline{
     public ValidationStage CreateValidationStage(EcommerceData data) => new(data)
 }
 
-public class RequestedStage : Stage<EcommerceData, EcommerceStageEnum>
+public class RequestedStage : Stage<EcommerceData>
 {
     public RequestedStage(EcommerceData data)
-        : base(data, EcommerceStageEnum.Requested) { }
+        : base(data) { }
 }
 
-public class ValidationStage : Stage<EcommerceData, EcommerceStageEnum>
+public class ValidationStage : Stage<EcommerceData>
 {
     public RequestedStage(EcommerceData data)
-        : base(data, EcommerceStageEnum.Validation) { }
+        : base(data) { }
 }
 
 public class EcommerceData { }
 
-public enum EcommerceStageEnum
-{
-    Requested,
-    Validation,
-    Processing,
-    Sending,
-    Finish
-}
 ```
 
 In services code
@@ -85,6 +77,8 @@ public class EcommerceService
         RequestedStage stage = EcommercePipeline.CreateRequestedStage(data);
         try
         {
+            stage.AddInformation("processing request stage") // this step is only a information
+
             if(data is null)
             {
                 stage.AddCanceled("has no data to request") // this step canceled the stage
@@ -95,9 +89,7 @@ public class EcommerceService
         catch (Exception ex)
         {
             stage.AddError("internal error: " + ex.Message) // // this step create a error to the stage
-        }Default
-
-        return
+        }
     }
 }
 ```
@@ -106,19 +98,23 @@ public class EcommerceService
 
 ### Step
 
-Step has many Status:
+Step has many Status. The following list is ordered by more critical desc:
 
-- Success
-- Error
 - Canceled
+- Error
 - InProgress
 - InAdjustment
+- Success
+- Information
 - Default
 
 ```csharp
-var step = Step.Success("success test","Step Name")
+Step step = Step.Success("success test","Step Name")
+
 step.Status // Success
 step.IsSuccess // true
+step.IsError // false
+step.IsCanceled // false
 ```
 
 ### Stage
@@ -126,41 +122,8 @@ step.IsSuccess // true
 Stage has:
 
 - Many steps
-- Name as Enum
 - Data to execute the stage process
 - Status more critical in step list
-
-```csharp
-using GHM.Pipeline;
-
-public class FirstStageExemple : Stage<DataExemple, StageNameExemple>
-{
-    public FirstStageExemple(DataExemple dataExemple)
-        : base(dataExemple, StageNameExemple.FirstStage) { }
-}
-
-public class DataExemple { }
-
-public enum StageNameExemple
-{
-    FirstStage,
-    SecongStage,
-    ThirdSatge
-}
-```
-
-```csharp
-using GHM.Pipeline;
-
-public class StageService
-{
-    public CreateStage()
-    {
-        var data = new DataExemple();
-        FirstStageExemple stage = new FirstStageExemple(data);
-    }
-}
-```
 
 ## Star
 
