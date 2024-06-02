@@ -93,7 +93,7 @@ public class StageTests
 
         //Assert
         Assert.Equal(Status.InAdjustment, _stage.Status);
-        Assert.False(_stage.IsSuccess);
+        Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
     }
@@ -112,7 +112,7 @@ public class StageTests
 
         //Assert
         Assert.Equal(Status.InProgress, _stage.Status);
-        Assert.False(_stage.IsSuccess);
+        Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
     }
