@@ -12,7 +12,7 @@ public abstract class Stage<TData>
 
     public IReadOnlyCollection<Step> Steps => _steps.AsReadOnly();
     public Status Status => GetStatusMoreCritical();
-    public bool IsSuccess => Status is Status.Success or Status.Information or Status.Default;
+    public bool IsSuccess => !IsError;
     public bool IsError => _steps.Any(step => step.Status is Status.Canceled or Status.Error);
     public bool IsCanceled => _steps.Any(step => step.Status is Status.Canceled);
 
