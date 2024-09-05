@@ -4,6 +4,8 @@
 
 <h1 align="center"> GHM.Pipeline </h1>
 
+[![Build & Test](https://github.com/GustavoM96/GHM.Pipeline/actions/workflows/build.yml/badge.svg)](https://github.com/GustavoM96/GHM.Pipeline/actions/workflows/build.yml)
+
 GHM.Pipeline is a nuget package aims to manage pipelines in parts, where a pipeline has many stages and a stage has many steps.
 
 ## Install Package
