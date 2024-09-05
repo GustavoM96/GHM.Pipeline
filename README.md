@@ -98,6 +98,14 @@ public class EcommerceService
 
 ## Classes
 
+### Stage
+
+Stage has:
+
+- Many steps
+- Data to execute the stage process
+- Status more critical in step list
+
 ### Step
 
 Step has many Status. The following list is ordered by more critical desc:
@@ -119,13 +127,6 @@ step.IsError // false
 step.IsCanceled // false
 ```
 
-### Stage
-
-Stage has:
-
-- Many steps
-- Data to execute the stage process
-- Status more critical in step list
 
 ## Star
 
