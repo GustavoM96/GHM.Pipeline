@@ -33,7 +33,7 @@ jobs:
 
     - name: Create the package
       if: github.ref == 'refs/heads/main'
-      run: dotnet pack --configuration Release ./src/GHM.Pipeline/GHM.Pipeline.csproj -p:Version=5.0.${{ github.run_number }}
+      run: dotnet pack --configuration Release ./src/GHM.Pipeline/GHM.Pipeline.csproj
         
     - name: Publish the package to nuget.org
       if: github.ref == 'refs/heads/main'
