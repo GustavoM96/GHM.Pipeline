@@ -13,8 +13,11 @@ public abstract class Stage<TData>
     public IReadOnlyCollection<Step> Steps => _steps.AsReadOnly();
     public Status Status => GetStatusMoreCritical();
     public bool IsSuccess => !IsError;
-    public bool IsError => _steps.Any(step => step.Status is Status.Canceled or Status.Error);
+    public bool IsError => _steps.Any(step => step.Status == Status.Error);
+    public bool IsErrorOrCanceled => _steps.Any(step => step.Status is Status.Canceled or Status.Error);
     public bool IsCanceled => _steps.Any(step => step.Status is Status.Canceled);
+
+    public IEnumerable<Step> GetStepsByStatus(Status status) => _steps.Where(step => step.Status == status);
 
     public TData Data { get; }
 
