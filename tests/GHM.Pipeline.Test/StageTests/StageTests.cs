@@ -56,6 +56,7 @@ public class StageTests
         Assert.False(_stage.IsSuccess);
         Assert.True(_stage.IsCanceled);
         Assert.True(_stage.IsError);
+        Assert.True(_stage.IsErrorOrCanceled);
     }
 
     [Fact]
@@ -76,6 +77,7 @@ public class StageTests
         Assert.False(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.True(_stage.IsError);
+        Assert.True(_stage.IsErrorOrCanceled);
     }
 
     [Fact]
@@ -96,6 +98,7 @@ public class StageTests
         Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
+        Assert.False(_stage.IsErrorOrCanceled);
     }
 
     [Fact]
@@ -115,6 +118,7 @@ public class StageTests
         Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
+        Assert.False(_stage.IsErrorOrCanceled);
     }
 
     [Fact]
@@ -134,6 +138,7 @@ public class StageTests
         Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
+        Assert.False(_stage.IsErrorOrCanceled);
     }
 
     [Fact]
@@ -152,6 +157,7 @@ public class StageTests
         Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
+        Assert.False(_stage.IsErrorOrCanceled);
     }
 
     [Fact]
@@ -164,5 +170,28 @@ public class StageTests
         Assert.True(_stage.IsSuccess);
         Assert.False(_stage.IsCanceled);
         Assert.False(_stage.IsError);
+        Assert.False(_stage.IsErrorOrCanceled);
+    }
+
+    [Fact]
+    public void GetStepsByStatus_Should_ReturnAllStepsByStatus()
+    {
+        //Arrange
+        var step = Step.Success("success test message");
+        var step1 = Step.Information("default test message");
+        var step2 = Step.Information("default test message2");
+        var stepList = new List<Step>(2) { step, step1, step2 };
+
+        //Act
+        _stage.AddRangeSteps(stepList);
+        var steps = _stage.GetStepsByStatus(Status.Success);
+        var steps2 = _stage.GetStepsByStatus(Status.Information);
+        var steps3 = _stage.GetStepsByStatus(Status.Error);
+
+        //Assert
+
+        Assert.All(steps, step => Assert.Equal(Status.Success, step.Status));
+        Assert.All(steps2, step => Assert.Equal(Status.Information, step.Status));
+        Assert.All(steps3, step => Assert.Equal(Status.Error, step.Status));
     }
 }
