@@ -46,7 +46,6 @@ jobs:
         dotnet-version: 9.0.x
 
     - name: Create the package
-      id: create_package 
       run: dotnet pack --configuration Release ${{ env.CSPROJ_FILE_PATH }}
         
     - name: Publish the package to nuget.org
@@ -55,7 +54,6 @@ jobs:
         NUGET_AUTH_TOKEN: ${{ secrets.NUGET_KEY }}
 
     - name: Upload .nupkg Artifact
-      if: steps.create_package.outcome == 'success'
       uses: actions/upload-artifact@v4
       with:
         name: nupkg-artifact
