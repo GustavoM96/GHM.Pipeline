@@ -91,6 +91,7 @@ jobs:
       shell: bash
 
     - name: Create GitHub Release
+      id: create_release
       uses: actions/create-release@v1
       if: env.EXISTS_RELEASE == 'false'
       with:
