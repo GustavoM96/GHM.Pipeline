@@ -71,9 +71,21 @@ jobs:
         LAST_COMMIT=$(git log -1 --pretty=%B)
         echo "LAST_COMMIT=$LAST_COMMIT" >> $GITHUB_ENV
       shell: bash
+    
+    - name: Check if Release Tag Exists
+      id: check_release
+      run: |
+        if gh release view "v${{ env.PACKAGE_VERSION }}" > /dev/null 2>&1; then
+          echo "EXISTS_RELEASE=true" >> $GITHUB_ENV
+        else
+          echo "EXISTS_RELEASE=false" >> $GITHUB_ENV
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
 
     - name: Create GitHub Release
       uses: actions/create-release@v1
+      if: env.EXISTS_RELEASE == 'false'
       with:
         tag_name: v${{ env.PACKAGE_VERSION }}
         release_name: Release v${{ env.PACKAGE_VERSION }}
@@ -89,6 +101,7 @@ jobs:
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
+      if: env.EXISTS_RELEASE == 'false'
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}  # Use the upload URL from the create-release step
         asset_path: ${{ env.NUPKG_FILE_PATH }}  # Path to the asset to upload
