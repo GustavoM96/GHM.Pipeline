@@ -108,6 +108,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Download .nupkg Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: nupkg-artifact
+        path: ./nupkg-artifact  # Ensure the artifact is downloaded to this path
+
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       if: env.EXISTS_RELEASE == 'false'
