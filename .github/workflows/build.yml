@@ -114,6 +114,9 @@ jobs:
         name: nupkg-artifact
         path: ./nupkg-artifact  # Ensure the artifact is downloaded to this path
 
+    - name: Debug files
+      run: ls -la ./nupkg-artifact
+
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       if: env.EXISTS_RELEASE == 'false'
