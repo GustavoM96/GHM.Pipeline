@@ -79,6 +79,7 @@ jobs:
           echo "EXISTS_RELEASE=true" >> $GITHUB_ENV
         else
           echo "EXISTS_RELEASE=false" >> $GITHUB_ENV
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: bash
