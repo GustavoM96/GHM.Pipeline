@@ -100,9 +100,9 @@ jobs:
         release_name: Release v${{ env.PACKAGE_VERSION }}
         body: |
           This release includes the latest changes and updates for version v${{ env.PACKAGE_VERSION }}.
-          Url to the package https://www.nuget.org/packages/GHM.Pipeline/${{ env.PACKAGE_VERSION }}
+          Url to the package => https://www.nuget.org/packages/GHM.Pipeline/${{ env.PACKAGE_VERSION }}
           
-          Last Commit
+          ------Description------
           ${{ env.LAST_COMMIT }}
         draft: false
         prerelease: false
@@ -114,9 +114,6 @@ jobs:
       with:
         name: nupkg-artifact
         path: ./nupkg-artifact  # Ensure the artifact is downloaded to this path
-
-    - name: Debug files
-      run: ls -la ./nupkg-artifact
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
