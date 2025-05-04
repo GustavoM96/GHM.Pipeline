@@ -56,10 +56,10 @@ jobs:
 
     - name: Upload .nupkg Artifact
       if: steps.create_package.outcome == 'success'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nupkg-artifact
-        path: ${{ env.NUPKG_FILE_PATH }}  # Upload the .nupkg file as an artifact
+        path: ./src/GHM.Pipeline/bin/Release/*.nupkg  # Upload the .nupkg file as an artifact
 
   release:
     runs-on: ubuntu-latest
