@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>GHM Pipeline</Title>
-	<Version>5.0.12</Version>
+	<Version>5.0.13</Version>
 	<PackageId>GHM.Pipeline</PackageId>
 	<Authors>Gustavo Henrique Messias</Authors>
 	<Company>Gustavo Henrique Messias</Company>
