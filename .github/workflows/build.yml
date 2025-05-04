@@ -12,6 +12,7 @@ on:
 env:
   CSPROJ_FILE_PATH: "./src/GHM.Pipeline/GHM.Pipeline.csproj"
   NUPKG_FILE_PATH: "./src/GHM.Pipeline/bin/Release/*.nupkg"
+  PROJECT_NAME: "GHM.Pipeline"
 
 jobs:
   build-test:
@@ -122,8 +123,8 @@ jobs:
       if: env.EXISTS_RELEASE == 'false'
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}  # Use the upload URL from the create-release step
-        asset_path: ./nupkg-artifact/*.nupkg  # Path to the asset to upload
-        asset_name: GHM.Pipeline-v${{ env.PACKAGE_VERSION }}.nupkg  # Name of the uploaded asset
+        asset_path: ./nupkg-artifact/${{ env.PROJECT_NAME }}.${{ env.PACKAGE_VERSION }}.nupkg  # Path to the asset to upload
+        asset_name: ${{ env.PROJECT_NAME }}-v${{ env.PACKAGE_VERSION }}.nupkg  # Name of the uploaded asset
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
